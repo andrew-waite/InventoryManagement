@@ -22,7 +22,6 @@ public class RootLayoutController extends BorderPane
 	@FXML
 	private void buttonClicked()
 	{
-		asdf.setText("Hello");
-		System.out.println("SOMETHING SOMETHING SOMETHING");
+		
 	}
 }
