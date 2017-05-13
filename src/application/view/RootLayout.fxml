@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="785.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RootLayoutController">
+<BorderPane prefHeight="1500.0" prefWidth="2500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -28,6 +28,26 @@
       </MenuBar>
    </top>
    <center>
-      <Button fx:id="asdf" onMouseClicked="#buttonClicked" mnemonicParsing="false" text="Hello World" BorderPane.alignment="CENTER"/>
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="2297.0" minWidth="10.0" prefWidth="2202.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="826.0" minWidth="0.0" prefWidth="298.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="2201.0" text="Item Description" />
+              </columns>
+            </TableView>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <Button layoutX="68.0" layoutY="45.0" mnemonicParsing="false" text="Add Item" />
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
    </center>
 </BorderPane>
