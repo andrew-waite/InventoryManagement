@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.TableRowData;
+import application.database.DatabaseController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +21,10 @@ public class RootLayoutController extends StackPane
 	private TableView<TableRowData> tableView;
 	
 	@FXML
-	private TableColumn<TableRowData, String> tableColumn;
+	private TableColumn<TableRowData, Integer> tableColumnReferenceNumber;
+	
+	@FXML
+	private TableColumn<TableRowData, String> tableColumnDescription;
 	
 	public RootLayoutController()
 	{
@@ -36,11 +40,14 @@ public class RootLayoutController extends StackPane
 	private void clickedButton(ActionEvent event)
 	{
 		ObservableList<TableRowData> data = FXCollections.observableArrayList();
-		data.add(new TableRowData("HI"));
+		data.add(new TableRowData(1, "HI"));
 		
-		tableColumn.setCellValueFactory(new PropertyValueFactory<TableRowData, String>("description"));
+		tableColumnReferenceNumber.setCellValueFactory(new PropertyValueFactory<TableRowData, Integer>("referenceNumber"));
+		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<TableRowData, String>("description"));
 		
 		tableView.setItems(data);
+		
+		new DatabaseController();
 		
 	}
 }
