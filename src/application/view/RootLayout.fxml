@@ -34,7 +34,7 @@
                   </VBox>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button layoutX="109.0" layoutY="33.0" mnemonicParsing="false" onAction="#clickedButton" text="Add Item" />
+                        <Button layoutX="109.0" layoutY="33.0" mnemonicParsing="false" onAction="#buttonAddItem" text="Add Item" />
                      </children>
                   </AnchorPane>
                </children>

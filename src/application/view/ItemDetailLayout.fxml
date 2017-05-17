@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RootLayoutController">
+   <children>
+      <VBox layoutY="-7.0" spacing="12.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+         <padding>
+            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+         </padding>
+         <children>
+            <Pane prefHeight="986.0" prefWidth="964.0">
+               <children>
+                  <TextArea layoutY="59.0" prefHeight="103.0" prefWidth="360.0" />
+                  <TextArea layoutX="14.0" layoutY="232.0" prefHeight="419.0" prefWidth="705.0" />
+                  <Label layoutX="12.0" layoutY="14.0" text="Short Description" />
+                  <Label layoutX="14.0" layoutY="175.0" text="Long Description" />
+                  <Label layoutX="397.0" layoutY="14.0" text="Barcode(s)" />
+                  <ListView layoutX="397.0" layoutY="59.0" prefHeight="117.0" prefWidth="554.0" />
+                  <Button layoutX="740.0" layoutY="232.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="207.0" text="Add Barcode" />
+                  <Button layoutX="740.0" layoutY="310.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="207.0" text="Update Fields" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

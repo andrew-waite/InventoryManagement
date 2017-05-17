@@ -66,7 +66,7 @@ public class RootLayoutController extends StackPane
 	}
 
 	@FXML
-	private void clickedButton(ActionEvent event)
+	private void buttonAddItem(ActionEvent event)
 	{
 		
 	}
