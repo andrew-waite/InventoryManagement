@@ -1,1 +1,1 @@
-Simple inventory management program written in java.
+Simple inventory management program written in java. Using javafx and sqlite
