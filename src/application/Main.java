@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import application.database.DatabaseController;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ public class Main extends Application
 {
 	private Stage primaryStage;
     private AnchorPane rootLayout;
+    private static DatabaseController databaseController;
     
     @FXML
     private Button myButton;
@@ -21,10 +23,17 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) 
     {
+    	initializeApplication();
+    	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Inventory Management");
 
         initRootLayout();
+    }
+    
+    public void initializeApplication()
+    {
+    	databaseController = new DatabaseController();
     }
     
     /**
@@ -58,6 +67,11 @@ public class Main extends Application
     {
     	return primaryStage;
 	}
+    
+    public static DatabaseController getDatabase()
+    {
+    	return Main.databaseController;
+    }
 
 	public static void main(String[] args) 
 	{

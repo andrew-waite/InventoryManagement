@@ -46,8 +46,5 @@ public class RootLayoutController extends StackPane
 		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<TableRowData, String>("description"));
 		
 		tableView.setItems(data);
-		
-		new DatabaseController();
-		
 	}
 }

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 public class DatabaseController 
 {
+	private Connection connection = null;
+	
 	public DatabaseController()
 	{
 		initialize();
@@ -13,12 +15,10 @@ public class DatabaseController
 
 	private void initialize() 
 	{
-		Connection connection = null;
-				
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:test.db");
+			this.connection = DriverManager.getConnection("jdbc:sqlite:inventory.db");
 		}
 		catch (ClassNotFoundException e) 
 		{
@@ -29,5 +29,10 @@ public class DatabaseController
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Connection getConnection()
+	{
+		return this.connection;
 	}
 }
