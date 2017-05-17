@@ -11,5 +11,6 @@ public class ItemDetailController
 	//Called after all FXML members have been injected
 	public void initialize()
 	{
+		
 	}
 }

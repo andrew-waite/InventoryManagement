@@ -79,9 +79,9 @@ public class RootLayoutController extends StackPane
         	
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/ItemDetailLayout.fxml"));
-            AnchorPane rootLayout = (AnchorPane) loader.load();
+            AnchorPane itemDetailLayout = (AnchorPane) loader.load();
 
-            Scene scene = new Scene(rootLayout, 1000, 700);
+            Scene scene = new Scene(itemDetailLayout, 1000, 700);
             stage.setScene(scene);
             stage.show();
         } 
