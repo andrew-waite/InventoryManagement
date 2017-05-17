@@ -1,10 +1,10 @@
-package application;
+package application.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
-public class RootLayoutController extends BorderPane
+public class RootLayoutController extends StackPane
 {
 	@FXML
 	private Button asdf;
