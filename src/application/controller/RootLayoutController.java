@@ -35,9 +35,6 @@ public class RootLayoutController extends StackPane
 	@FXML
 	private void clickedButton(ActionEvent event)
 	{
-		System.out.println("Something");
-		
-		
 		ObservableList<TableRowData> data = FXCollections.observableArrayList();
 		data.add(new TableRowData("HI"));
 		
