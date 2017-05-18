@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 
 import application.database.DatabaseController;
+import application.model.Context;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,8 @@ public class Main extends Application
     	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Inventory Management");
+        
+        Context.getInstance().getStageManager().addStage(this.primaryStage);
 
         initRootLayout();
     }
@@ -45,13 +48,15 @@ public class Main extends Application
         {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (AnchorPane) loader.load();
+            this.rootLayout = (AnchorPane) loader.load();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout, 1000, 700);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            this.primaryStage.setScene(scene);
+            this.primaryStage.show();
+            
+            Context.getInstance().getStageManager().addStage(this.primaryStage);
         } 
         catch (IOException e) 
         {
@@ -71,6 +76,11 @@ public class Main extends Application
     public static DatabaseController getDatabase()
     {
     	return Main.databaseController;
+    }
+    
+    public void getProperties()
+    {
+
     }
 
 	public static void main(String[] args) 

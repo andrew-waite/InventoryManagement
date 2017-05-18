@@ -16,14 +16,15 @@
          <children>
             <Pane prefHeight="986.0" prefWidth="964.0">
                <children>
-                  <TextArea layoutY="59.0" prefHeight="103.0" prefWidth="360.0" />
-                  <TextArea layoutX="14.0" layoutY="232.0" prefHeight="419.0" prefWidth="705.0" />
+                  <TextArea layoutY="59.0" prefHeight="103.0" prefWidth="360.0" fx:id="titleTextArea"/>
+                  <TextArea layoutX="14.0" layoutY="232.0" prefHeight="419.0" prefWidth="705.0" fx:id="longDescriptionTextArea" />
                   <Label layoutX="12.0" layoutY="14.0" text="Short Description" />
                   <Label layoutX="14.0" layoutY="175.0" text="Long Description" />
                   <Label layoutX="397.0" layoutY="14.0" text="Barcode(s)" />
-                  <ListView layoutX="397.0" layoutY="59.0" prefHeight="117.0" prefWidth="554.0" />
+                  <ListView layoutX="397.0" layoutY="59.0" prefHeight="117.0" prefWidth="554.0" fx:id="associatedBarcodes"/>
                   <Button layoutX="740.0" layoutY="232.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="207.0" text="Add Barcode" onAction="#launchAddBarcode"/>
-                  <Button layoutX="740.0" layoutY="310.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="207.0" text="Update Fields" />
+                  <Button layoutX="740.0" layoutY="310.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="207.0" text="Update Fields" onAction="#updateFields"/>
+                  <Button layoutX="740.0" layoutY="388.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="207.0" text="Close Window" onAction="#closeWindow"/>
                </children>
             </Pane>
          </children>
