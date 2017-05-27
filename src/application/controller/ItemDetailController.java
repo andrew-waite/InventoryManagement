@@ -40,34 +40,45 @@ public class ItemDetailController
 	//Called after all FXML members have been injected
 	public void initialize()
 	{
-		String title = "", longDescription = "";
-		int barcodeID = 0;
-		try
-		{
-			Statement statement = Main.getDatabase().getConnection().createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT title, longDescription, barcodesID FROM Records WHERE id = " + Context.getInstance().getCurrentPrimaryKey());
-			while(resultSet.next())
+		
+		if(Context.getInstance().getCurrentPrimaryKey() != -1)
+		{		
+			String title = "", longDescription = "";
+			int barcodeID = 0;
+			try
 			{
-				title = resultSet.getString("title");
-				longDescription = resultSet.getString("longDescription");
-				barcodeID = resultSet.getInt("barcodesID");
+				Statement statement = Main.getDatabase().getConnection().createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT title, longDescription, barcodesID FROM Records WHERE id = " + Context.getInstance().getCurrentPrimaryKey());
+				while(resultSet.next())
+				{
+					title = resultSet.getString("title");
+					longDescription = resultSet.getString("longDescription");
+					barcodeID = resultSet.getInt("barcodesID");
+				}
+				
+				ResultSet barcodeResults = statement.executeQuery("SELECT * FROM BarcodeNumbers WHERE barcodesID = " + barcodeID);
+				while(barcodeResults.next())
+				{
+					this.barcodes.add(barcodeResults.getString("barcode"));
+				}
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
 			}
 			
-			ResultSet barcodeResults = statement.executeQuery("SELECT * FROM BarcodeNumbers WHERE barcodesID = " + barcodeID);
-			while(barcodeResults.next())
-			{
-				this.barcodes.add(barcodeResults.getString("barcode"));
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
+			this.titleTextArea.setText(title);
+			this.longDescriptionTextArea.setText(longDescription);
+			
+			this.associatedBarcodes.setItems(barcodes);
 		}
-		
-		this.titleTextArea.setText(title);
-		this.longDescriptionTextArea.setText(longDescription);
-		
-		this.associatedBarcodes.setItems(barcodes);
+		else
+		{
+			this.titleTextArea.setText("");
+			this.longDescriptionTextArea.setText("");
+			
+			this.associatedBarcodes.setItems(barcodes);
+		}
 	}
 	
 	@FXML
@@ -91,6 +102,24 @@ public class ItemDetailController
 	@FXML
 	public void updateFields()
 	{
+		if(Context.getInstance().getCurrentPrimaryKey() == -1)
+		{
+			try 
+			{
+				Statement statement = Main.getDatabase().getConnection().createStatement();
+				statement.execute("INSERT INTO Records (title, longDescription, barcodesID) VALUES ('a', 'b', 0);");
+				
+				Statement getLastRowStatement = Main.getDatabase().getConnection().createStatement();
+				ResultSet resultSet = getLastRowStatement.executeQuery("SELECT id FROM Records WHERE id = (SELECT MAX(ID) FROM Records);");
+				resultSet.next();
+				Context.getInstance().setCurrentPrimaryKey(resultSet.getInt("id"));
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}	
+		}
+		
 		int pk = Context.getInstance().getCurrentPrimaryKey();
 		
 		//Update the title and description fields and the barcode ID to match the current primary key id

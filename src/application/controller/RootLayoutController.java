@@ -39,6 +39,9 @@ public class RootLayoutController extends StackPane
 	@FXML
 	private TableColumn<TableRowData, String> tableColumnDescription;
 	
+	private int currentDeletedRow = 0;
+	
+	
 	//Called before all FXML members have been injected
 	public RootLayoutController()
 	{
@@ -101,15 +104,21 @@ public class RootLayoutController extends StackPane
 		tableView.setRowFactory( tv -> {
 		    TableRow<TableRowData> row = new TableRow<>();
 		    row.setOnMouseClicked(event -> {
-		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) 
+		        {
 		        	TableRowData rowData = row.getItem();
 		            launchDetailedView(rowData.getReferenceNumber());
+		        }
+		        else if (event.getClickCount() == 1 && (! row.isEmpty()) ) 
+		        {
+		        	TableRowData rowData = row.getItem();
+		        	this.currentDeletedRow = rowData.getReferenceNumber();
 		        }
 		    });
 		    return row ;
 		});
 	}
-	
+		
 	public void launchDetailedView(int id)
 	{
 		Context.getInstance().setCurrentPrimaryKey(id);
@@ -138,22 +147,8 @@ public class RootLayoutController extends StackPane
 	@FXML
 	private void buttonAddItem(ActionEvent event)
 	{
-		int id = 0;
-		try 
-		{
-			Statement statement = Main.getDatabase().getConnection().createStatement();
-			statement.execute("INSERT INTO Records (title, longDescription, barcodesID) VALUES ('a', 'b', 0);");
-			
-			Statement getLastRowStatement = Main.getDatabase().getConnection().createStatement();
-			ResultSet resultSet = getLastRowStatement.executeQuery("SELECT id FROM Records WHERE id = (SELECT MAX(ID) FROM Records);");
-			resultSet.next();
-			id = resultSet.getInt("id");
-		} 
-		catch (SQLException e1) 
-		{
-			e1.printStackTrace();
-		}
-		
+		int id = -1;
+
 		Context.getInstance().setCurrentPrimaryKey(id);
 		
         try 
@@ -175,5 +170,24 @@ public class RootLayoutController extends StackPane
         {
         	e.printStackTrace();
 	    }
+	}
+	
+	@FXML
+	private void buttonRemoveItem(ActionEvent event)
+	{
+		try
+		{
+			Statement statement = Main.getDatabase().getConnection().createStatement();
+			statement.execute("DELETE FROM Records WHERE id=" + this.currentDeletedRow + ";");
+			
+			Statement statement_barcode = Main.getDatabase().getConnection().createStatement();
+			statement_barcode.execute("DELETE FROM BarcodeNumbers WHERE barcodesID=" + this.currentDeletedRow + ";");
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		this.refreshTable();
 	}
 }
