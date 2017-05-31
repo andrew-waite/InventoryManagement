@@ -34,8 +34,10 @@
                   </VBox>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button layoutX="109.0" layoutY="33.0" mnemonicParsing="false" onAction="#buttonAddItem" text="Add Item" />
-                        <Button layoutX="109.0" layoutY="70.0" mnemonicParsing="false" onAction="#buttonRemoveItem" text="Remove Item" />
+                        <Button layoutX="59.0" layoutY="38.0" mnemonicParsing="false" onAction="#buttonAddItem" text="Add Item" />
+                        <Button layoutX="141.0" layoutY="38.0" mnemonicParsing="false" onAction="#buttonRemoveItem" text="Remove Item" />
+                        <TextArea layoutX="25.0" layoutY="138.0" prefHeight="31.0" prefWidth="216.0" fx:id="searchField" />
+                        <Label layoutX="111.0" layoutY="103.0" text="Search" />
                      </children>
                   </AnchorPane>
                </children>

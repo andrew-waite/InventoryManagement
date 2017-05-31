@@ -20,7 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -39,6 +41,9 @@ public class RootLayoutController extends StackPane
 	@FXML
 	private TableColumn<TableRowData, String> tableColumnDescription;
 	
+	@FXML
+	private TextArea searchField;
+	
 	private int currentDeletedRow = 0;
 	
 	
@@ -52,6 +57,7 @@ public class RootLayoutController extends StackPane
 	public void initialize()
 	{
 		this.focusListener();
+		this.searchFieldListener();
 	}
 	
 	public void focusListener()
@@ -117,6 +123,53 @@ public class RootLayoutController extends StackPane
 		    });
 		    return row ;
 		});
+	}
+	
+	public void searchFieldListener()
+	{
+		this.searchField.setOnKeyPressed(keyTyped ->
+		{
+			if(keyTyped.getCode() == KeyCode.BACK_SPACE)
+			{
+				//TODO: Find a better solution, this will throw a IndexOutOFBoundsException when there is now text in the TextArea
+				searchDatabase(this.searchField.getText().substring(0, this.searchField.getText().length() - 1));
+			}
+			else
+			{
+				//System.out.println(this.searchField.getText() + keyTyped.getText());
+				
+				//Add the current character has the TextArea is not updated with it yet when this event fires
+				searchDatabase(this.searchField.getText() + keyTyped.getText());
+			}
+		});
+	}
+	
+	public void searchDatabase(String string)
+	{
+		try
+		{
+			Statement statement = Main.getDatabase().getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Records WHERE title LIKE '%" + string + "%';");			
+
+			ObservableList<TableRowData> data = FXCollections.observableArrayList();
+			
+			while(resultSet.next())
+			{
+				data.add(new TableRowData(resultSet.getInt("id"), resultSet.getString("title")));
+			}
+			
+			this.tableColumnReferenceNumber.setCellValueFactory(new PropertyValueFactory<TableRowData, Integer>("referenceNumber"));
+			this.tableColumnDescription.setCellValueFactory(new PropertyValueFactory<TableRowData, String>("description"));
+			
+			this.tableView.setItems(data);
+			
+			this.tableView.refresh();
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 		
 	public void launchDetailedView(int id)
